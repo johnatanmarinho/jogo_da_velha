@@ -8,6 +8,7 @@ function Tabuleiro(id){
         '','','',
         '','',''
     ];
+    this.emptySpaces = this.logicalBoard.length;
 
     this.init = function (){
         
@@ -27,6 +28,7 @@ function Tabuleiro(id){
                   
                   let index = this.getAttribute('id');
                   self.logicalBoard[index] = self.player;
+                  self.emptySpaces--;
                   self.update();
               }
               
@@ -91,6 +93,14 @@ function Tabuleiro(id){
         }else if(winner !== null){
             alert("você perdeu");
             this.logicalBoard = [
+                '','','',
+                '','','',
+                '','',''
+            ];
+            this.update();
+        }
+        if(emptySpaces == 0 && winner === null){
+            alert("Deu velha");this.logicalBoard = [
                 '','','',
                 '','','',
                 '','',''
