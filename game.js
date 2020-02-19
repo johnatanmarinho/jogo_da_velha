@@ -8,6 +8,7 @@ function Tabuleiro(id){
         '','','',
         '','',''
     ];
+    this.turn = null;
     this.emptySpaces = this.logicalBoard.length;
 
     this.init = function (){
@@ -23,13 +24,17 @@ function Tabuleiro(id){
             cell.innerHTML="  ";
             cell.onclick = function(){
 
-              if(this.innerHTML !== "X" && this.innerHTML !== "O"){
-                  console.log('tabuleiro ',self.logicalBoard);
-                  
-                  let index = this.getAttribute('id');
-                  self.logicalBoard[index] = self.player;
-                  self.update();
-              }
+
+                if (self.turn !== self.player){
+                    self.turn = self.player;
+                    if(this.innerHTML !== "X" && this.innerHTML !== "O"){
+                        console.log('tabuleiro ',self.logicalBoard);
+                        
+                        let index = this.getAttribute('id');
+                        self.logicalBoard[index] = self.player;
+                        self.update();
+                    }
+                }
               
             }
             this.board.appendChild(cell);

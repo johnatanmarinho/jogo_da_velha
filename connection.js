@@ -13,7 +13,12 @@ function startGame(id){
     document.addEventListener('click', function(){
         let board = document.getElementById('board');
         setTimeout(function(){
-            servConn.send(game.logicalBoard);
+            
+            servConn.send({ 
+                turn: game.turn, 
+                board: game.logicalBoard
+            });
+
             game.checkWin();
         },2);
     });
@@ -63,8 +68,11 @@ servidor.on('error', function(error){
 });
 
 
-function update( aff ){
-    game.logicalBoard = aff;
+function update( data ){
+    console.log(data);
+    
+    game.turn = data.turn;
+    game.logicalBoard = data.board;
     game.update();
     game.checkWin();
 }
