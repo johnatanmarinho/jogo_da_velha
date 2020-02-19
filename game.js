@@ -28,7 +28,6 @@ function Tabuleiro(id){
                   
                   let index = this.getAttribute('id');
                   self.logicalBoard[index] = self.player;
-                  self.emptySpaces--;
                   self.update();
               }
               
@@ -40,9 +39,13 @@ function Tabuleiro(id){
     }
 
     this.update = function(){
+        let count = 0;
         for(let i = 0 ; i < 9; i++ ){            
             this.board.childNodes[i].innerHTML = this.logicalBoard[i];
+            if(this.logicalBoard[i] !== '')
+                count++;
         }
+        this.emptySpaces = this.logicalBoard.length - count;
     }
 
     this.checkWin = function(){
@@ -99,8 +102,11 @@ function Tabuleiro(id){
             ];
             this.update();
         }
-        if(emptySpaces == 0 && winner === null){
-            alert("Deu velha");this.logicalBoard = [
+        console.log(this.emptySpaces);
+        
+        if(this.emptySpaces == 0 && winner === null){
+            alert("Deu velha");
+            this.logicalBoard = [
                 '','','',
                 '','','',
                 '','',''
